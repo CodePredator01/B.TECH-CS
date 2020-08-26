@@ -82,14 +82,15 @@ WHERE sID = (
     );
 
 -- Q10. Find sID of student who applied to more or same number of college where Jay has applied?
-SELECT sID FROM APPLY
+SELECT sID
+FROM APPLY
 GROUP BY sID
-HAVING COUNT(sID) >= (
-        SELECT COUNT(sID) FROM APPLY
-        WHERE sID = (
-                SELECT sID FROM STUDENT
-                WHERE sName = 'Jay')
-    )
+HAVING COUNT(DISTINCT cName) >= (SELECT COUNT(DISTINCT cName) AS COLLEGE_COUNT
+                                 FROM APPLY
+                                 WHERE sID = (SELECT sID
+                                              FROM student
+                                              WHERE sName = 'Jay'
+                                 ))
 ORDER BY sID;
 
 -- Q11. Find details of Students who applied to major CS but not applied to major EE? (sID 987, 876, 543 should only be include in result)
