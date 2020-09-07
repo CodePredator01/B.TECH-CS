@@ -147,7 +147,7 @@ ORDER  BY sID;
 
 -- Q17. Find the name of student who applies to all the colleges where sID 987 has applied?
 SELECT sName, sID
-FROM STUDENT AS OUTER_TABLE
+FROM STUDENT OUTER_TABLE
 WHERE NOT EXISTS(
         SELECT DISTINCT cName FROM APPLY
         WHERE sID = 987
